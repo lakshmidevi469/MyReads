@@ -1,21 +1,12 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI.js'
 import StringRegExp from 'escape-string-regexp'
-
+import { Link } from 'react-router-dom'
 
 class SearchBooks extends Component {
 
 	state = {
-		books: [],
 		searchText: ''
 	}
-
-	componentDidMount() {
-	    BooksAPI.getAll().then((books) => {
-	    	console.log(books)
-	      this.setState({ books }) 
-	    })
-	  }
 
 	updateSearchText=(text)=>{
 	  this.setState({searchText: text.trim()})
@@ -26,16 +17,17 @@ class SearchBooks extends Component {
 		let showingBooks
         if(this.state.searchText){
             const match = new RegExp(StringRegExp(this.state.searchText), 'i')
-            showingBooks = this.state.books.filter((book) => match.test(book.title))
+            showingBooks = this.props.books.filter((book) => match.test(book.title))
         }
         else{
-            showingBooks = this.state.books
+            showingBooks = this.props.books
         }
 
 		return(
 			<div className="search-books">
 				<div className="search-books-bar">
-	              <a className="close-search" onClick={()=>this.props.onCloseClick()}>Close</a>
+				  <Link className="close-search" to="/">Close</Link>
+	              
 	              <div className="search-books-input-wrapper">
 	                {/*
 	                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -61,12 +53,12 @@ class SearchBooks extends Component {
 	                          <div className="book-top">
 	                            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
 	                            <div className="book-shelf-changer">
-	                              <select>
+	                              <select onChange={(event)=>this.props.onUpdateShelf(book, event.target.value)}>
 	                                <option value="none" disabled>Move to...</option>
-	                                <option value="currentlyReading">Currently Reading</option>
-	                                <option value="wantToRead">Want to Read</option>
-	                                <option value="read">Read</option>
-	                                <option value="none">None</option>
+	                                <option value="currentlyReading" selected={book.shelf==="currentlyReading"}>Currently Reading</option>
+	                                <option value="wantToRead" selected={book.shelf==="wantToRead"}>Want to Read</option>
+	                                <option value="read" selected={book.shelf==="read"}>Read</option>
+	                                <option value="none" selected={book.shelf==="none"}>None</option>
 	                              </select>
 	                            </div>
 	                          </div>
@@ -77,10 +69,10 @@ class SearchBooks extends Component {
                   	)}
 	              </ol>
 	            </div>
-	            {JSON.stringify(this.state.books.length)}
             </div>
 		)
 	}
 }
 
 export default SearchBooks;
+
