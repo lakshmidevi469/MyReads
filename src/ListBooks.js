@@ -1,51 +1,8 @@
 import React, { Component } from 'react'
-// import * as BooksAPI from './BooksAPI.js'
-//import SearchBooks from './SearchBooks'
 import { Link } from 'react-router-dom'
 
 class ListBooks extends Component {
 
-	/*state={
-		currentlyReading: [],
-		wantToRead: [],
-		read: []
-	}
-
-	componentDidMount() {
-	    this.setState({
-	      	currentlyReading: this.props.books.filter((book) => book.shelf==='currentlyReading'),
-	      	wantToRead: this.props.books.filter((book) => book.shelf==='wantToRead'),
-	    	read: this.props.books.filter((book) => book.shelf==='read')
-	      }
-	    )
-	}
-
-	listBookShelf(){
-		BooksAPI.getAll().then((books) => {
-	    	
-	      this.setState({
-	      	allBooks: books,
-	      	currentlyReading: books.filter((book) => book.shelf==='currentlyReading'),
-	      	wantToRead: books.filter((book) => book.shelf==='wantToRead'),
-	    	read: books.filter((book) => book.shelf==='read')
-	      }
-	    )})
-	}
-
-	updateShelf = (book, shelf) => {
-			
-		BooksAPI.update(book, shelf).then((books) => {
-			this.listBookShelf()
-		})
-	}
-
-	closeSearchPage = () => {
-	    this.setState({showSearchPage: false})
-	}
-
-	goSearchPage = () => {
-	    this.setState({showSearchPage: true})
-	}*/
 
 	render(){
 		console.log("inside listbooks.js")

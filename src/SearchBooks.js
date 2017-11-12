@@ -17,7 +17,7 @@ class SearchBooks extends Component {
 		let showingBooks
         if(this.state.searchText){
             const match = new RegExp(StringRegExp(this.state.searchText), 'i')
-            showingBooks = this.props.books.filter((book) => match.test(book.title))
+            showingBooks = this.props.books.filter((book) => match.test(book.title) || match.test(book.authors))
         }
         else{
             showingBooks = this.props.books
